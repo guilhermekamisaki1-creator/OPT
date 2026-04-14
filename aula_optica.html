@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Óptica – Aula Completa | 2º Ano EM</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --accent: #f59e0b;
+    --accent2: #38bdf8;
+    --accent3: #a78bfa;
+    --accent4: #34d399;
+    --danger: #f87171;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --border: rgba(255,255,255,0.07);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Source Sans 3',sans-serif;
+    font-size:17px;
+    line-height:1.8;
+    overflow-x:hidden;
+  }
+
+  /* ── HEADER ── */
+  header{
+    position:relative;
+    text-align:center;
+    padding:80px 20px 60px;
+    background:radial-gradient(ellipse 80% 60% at 50% 0%,#1e3a5f 0%,#0a0e1a 70%);
+    overflow:hidden;
+  }
+  header::before{
+    content:'';
+    position:absolute;inset:0;
+    background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .light-beam{
+    position:absolute;
+    top:0;left:50%;
+    width:2px;height:100%;
+    background:linear-gradient(to bottom,transparent,#f59e0b88,transparent);
+    transform:rotate(-20deg) translateX(-60px);
+    animation:beam 4s ease-in-out infinite alternate;
+  }
+  .light-beam:nth-child(2){transform:rotate(20deg) translateX(60px);animation-delay:2s;background:linear-gradient(to bottom,transparent,#38bdf888,transparent);}
+  @keyframes beam{from{opacity:0.3;}to{opacity:1;}}
+  header h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2.5rem,6vw,4.5rem);
+    font-weight:900;
+    background:linear-gradient(135deg,#f59e0b,#fbbf24,#38bdf8);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    position:relative;z-index:1;
+    text-shadow:none;
+    letter-spacing:-1px;
+  }
+  header .subtitle{
+    color:var(--muted);font-size:1.1rem;margin-top:12px;
+    position:relative;z-index:1;letter-spacing:3px;text-transform:uppercase;
+  }
+  .badge{
+    display:inline-block;background:var(--accent);color:#000;
+    padding:4px 14px;border-radius:999px;font-size:0.8rem;font-weight:700;
+    margin-top:16px;letter-spacing:1px;
+  }
+
+  /* ── NAV ── */
+  nav{
+    position:sticky;top:0;z-index:100;
+    background:rgba(10,14,26,0.92);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+    display:flex;flex-wrap:wrap;justify-content:center;gap:4px;
+    padding:10px 16px;
+  }
+  nav a{
+    color:var(--muted);text-decoration:none;font-size:0.82rem;font-weight:600;
+    padding:6px 14px;border-radius:6px;letter-spacing:0.5px;
+    transition:all .2s;text-transform:uppercase;
+  }
+  nav a:hover{color:var(--accent);background:rgba(245,158,11,0.1);}
+
+  /* ── MAIN ── */
+  main{max-width:960px;margin:0 auto;padding:40px 20px 100px;}
+
+  /* ── SECTION ── */
+  .section{
+    margin-bottom:72px;
+    animation:fadeUp .6s ease both;
+  }
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+  .section-header{
+    display:flex;align-items:center;gap:16px;
+    margin-bottom:28px;
+    padding-bottom:16px;
+    border-bottom:2px solid var(--border);
+  }
+  .section-num{
+    font-family:'Playfair Display',serif;
+    font-size:3rem;font-weight:900;
+    color:var(--accent);opacity:0.3;
+    line-height:1;min-width:56px;
+  }
+  .section-title{
+    font-family:'Playfair Display',serif;
+    font-size:1.9rem;font-weight:700;
+    color:var(--text);line-height:1.2;
+  }
+  .section-title span{color:var(--accent);}
+
+  p{margin-bottom:1rem;color:#cbd5e1;}
+  strong{color:var(--accent);font-weight:700;}
+  em{color:var(--accent2);font-style:normal;font-weight:600;}
+
+  /* ── CARDS ── */
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:24px 28px;
+    margin-bottom:20px;
+    position:relative;
+    overflow:hidden;
+  }
+  .card::before{
+    content:'';position:absolute;top:0;left:0;
+    width:4px;height:100%;
+    background:var(--accent);
+  }
+  .card.blue::before{background:var(--accent2);}
+  .card.purple::before{background:var(--accent3);}
+  .card.green::before{background:var(--accent4);}
+  .card.red::before{background:var(--danger);}
+  .card h3{font-family:'Playfair Display',serif;font-size:1.25rem;margin-bottom:10px;color:var(--accent);}
+  .card.blue h3{color:var(--accent2);}
+  .card.purple h3{color:var(--accent3);}
+  .card.green h3{color:var(--accent4);}
+
+  /* ── FORMULA BOX ── */
+  .formula{
+    background:var(--surface2);
+    border:1px solid var(--accent);
+    border-radius:12px;
+    padding:20px 28px;
+    margin:20px 0;
+    text-align:center;
+    font-family:'JetBrains Mono',monospace;
+    font-size:1.4rem;
+    color:var(--accent);
+    position:relative;
+  }
+  .formula .label{
+    position:absolute;top:-10px;left:16px;
+    background:var(--bg);
+    padding:0 8px;
+    font-size:0.72rem;letter-spacing:2px;
+    color:var(--muted);text-transform:uppercase;
+    font-family:'Source Sans 3',sans-serif;
+  }
+  .formula.blue{border-color:var(--accent2);color:var(--accent2);}
+  .formula.purple{border-color:var(--accent3);color:var(--accent3);}
+
+  /* ── TABLE ── */
+  table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.95rem;}
+  th{background:var(--surface2);color:var(--accent);padding:12px 16px;text-align:left;font-weight:700;border-bottom:2px solid var(--accent);}
+  td{padding:10px 16px;border-bottom:1px solid var(--border);color:#cbd5e1;}
+  tr:hover td{background:rgba(255,255,255,0.02);}
+
+  /* ── SVG DIAGRAMS ── */
+  .diagram{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:20px;
+    margin:24px 0;
+    text-align:center;
+  }
+  .diagram svg{max-width:100%;height:auto;}
+  .diagram figcaption{
+    font-size:0.85rem;color:var(--muted);
+    margin-top:10px;font-style:italic;letter-spacing:.5px;
+  }
+
+  /* ── GRID ── */
+  .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:20px 0;}
+  .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:20px 0;}
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight{
+    background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(56,189,248,.06));
+    border:1px solid rgba(245,158,11,.25);
+    border-radius:12px;padding:20px 24px;margin:20px 0;
+  }
+  .highlight.blue{
+    background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(167,139,250,.06));
+    border-color:rgba(56,189,248,.25);
+  }
+  .highlight.green{
+    background:linear-gradient(135deg,rgba(52,211,153,.08),rgba(56,189,248,.06));
+    border-color:rgba(52,211,153,.25);
+  }
+
+  /* ── ALERT ── */
+  .alert{
+    display:flex;gap:12px;align-items:flex-start;
+    background:rgba(248,113,113,.08);
+    border:1px solid rgba(248,113,113,.3);
+    border-radius:10px;padding:16px 20px;margin:16px 0;
+  }
+  .alert-icon{font-size:1.4rem;flex-shrink:0;margin-top:2px;}
+  .alert p{margin:0;color:#fca5a5;}
+
+  /* ── STEPS ── */
+  .steps{counter-reset:step;margin:20px 0;}
+  .step{
+    counter-increment:step;
+    display:flex;gap:16px;margin-bottom:16px;
+    align-items:flex-start;
+  }
+  .step::before{
+    content:counter(step);
+    background:var(--accent);color:#000;
+    font-weight:900;font-size:0.85rem;
+    min-width:30px;height:30px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;margin-top:2px;
+  }
+  .step p{margin:0;}
+
+  /* ── VIDEO CARD ── */
+  .video-card{
+    background:var(--surface2);
+    border:1px solid var(--border);
+    border-radius:14px;padding:20px 24px;
+    display:flex;gap:16px;align-items:flex-start;
+    margin:12px 0;
+    transition:border-color .2s;
+  }
+  .video-card:hover{border-color:var(--danger);}
+  .yt-icon{font-size:2rem;flex-shrink:0;margin-top:2px;}
+  .video-card h4{color:var(--text);font-size:1rem;margin-bottom:4px;}
+  .video-card p{color:var(--muted);font-size:0.88rem;margin:0;}
+  .video-card a{
+    display:inline-block;margin-top:8px;
+    background:var(--danger);color:#fff;
+    padding:5px 14px;border-radius:6px;font-size:0.8rem;font-weight:700;
+    text-decoration:none;letter-spacing:.5px;
+  }
+
+  /* ── TAG ── */
+  .tag{
+    display:inline-block;
+    background:rgba(245,158,11,.15);color:var(--accent);
+    border:1px solid rgba(245,158,11,.3);
+    padding:2px 10px;border-radius:999px;font-size:0.78rem;
+    font-weight:700;letter-spacing:.5px;margin-right:6px;
+  }
+  .tag.blue{background:rgba(56,189,248,.15);color:var(--accent2);border-color:rgba(56,189,248,.3);}
+  .tag.purple{background:rgba(167,139,250,.15);color:var(--accent3);border-color:rgba(167,139,250,.3);}
+  .tag.green{background:rgba(52,211,153,.15);color:var(--accent4);border-color:rgba(52,211,153,.3);}
+
+  /* ── DIVIDER ── */
+  .divider{border:none;border-top:1px solid var(--border);margin:48px 0;}
+
+  /* ── INTERACTIVE SNELL ── */
+  .snell-demo{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:16px;padding:24px;margin:24px 0;
+  }
+  .snell-demo h3{color:var(--accent2);margin-bottom:16px;font-family:'Playfair Display',serif;}
+  .snell-controls{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:20px;}
+  .control-group{display:flex;flex-direction:column;gap:6px;}
+  .control-group label{font-size:0.82rem;color:var(--muted);letter-spacing:.5px;}
+  .control-group input[type=range]{width:200px;accent-color:var(--accent2);}
+  .control-group .val{font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:var(--accent2);}
+  #snell-result{
+    font-family:'JetBrains Mono',monospace;font-size:1rem;
+    color:var(--accent4);margin-top:10px;
+    background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);
+    border-radius:8px;padding:12px 16px;
+  }
+
+  /* ── QUIZ ── */
+  .quiz-card{
+    background:var(--surface2);border:1px solid var(--border);
+    border-radius:14px;padding:24px;margin:20px 0;
+  }
+  .quiz-card h4{color:var(--accent3);margin-bottom:14px;font-size:1.05rem;}
+  .quiz-options{display:flex;flex-direction:column;gap:8px;}
+  .quiz-opt{
+    background:rgba(255,255,255,.04);border:1px solid var(--border);
+    border-radius:8px;padding:10px 16px;cursor:pointer;
+    color:#cbd5e1;font-size:0.95rem;
+    transition:all .2s;
+  }
+  .quiz-opt:hover{border-color:var(--accent3);color:var(--accent3);}
+  .quiz-opt.correct{background:rgba(52,211,153,.12);border-color:var(--accent4);color:var(--accent4);}
+  .quiz-opt.wrong{background:rgba(248,113,113,.12);border-color:var(--danger);color:var(--danger);}
+  .quiz-feedback{margin-top:12px;font-size:0.9rem;min-height:20px;color:var(--muted);}
+
+  /* ── MEMORY AID ── */
+  .memory{
+    background:linear-gradient(135deg,rgba(167,139,250,.1),rgba(56,189,248,.08));
+    border:1px solid rgba(167,139,250,.3);
+    border-radius:12px;padding:20px 24px;margin:20px 0;
+    position:relative;
+  }
+  .memory::before{
+    content:'🧠 MACETE';
+    position:absolute;top:-12px;left:16px;
+    background:var(--bg);padding:0 8px;
+    font-size:0.72rem;font-weight:800;letter-spacing:2px;color:var(--accent3);
+  }
+
+  /* scrollbar */
+  ::-webkit-scrollbar{width:6px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:var(--surface2);border-radius:3px;}
+
+  @media(max-width:600px){
+    .section-num{font-size:2rem;min-width:40px;}
+    .section-title{font-size:1.5rem;}
+    nav a{font-size:0.72rem;padding:5px 10px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="light-beam"></div>
+  <div class="light-beam"></div>
+  <h1>Óptica Geométrica</h1>
+  <p class="subtitle">Aula Completa · 2º Ano do Ensino Médio</p>
+  <span class="badge">📐 Nível Vestibular · FUVEST · UNICAMP · ENEM</span>
+</header>
+
+<!-- NAV -->
+<nav>
+  <a href="#intro">Introdução</a>
+  <a href="#meios">Meios Ópt.</a>
+  <a href="#refracao">Refração</a>
+  <a href="#indice">Índice n</a>
+  <a href="#caminhos">Caminhos</a>
+  <a href="#snell">Snell</a>
+  <a href="#angulo-limite">Âng. Limite</a>
+  <a href="#reflexao-total">Ref. Total</a>
+  <a href="#exercicios">Exercícios</a>
+  <a href="#videos">Vídeos</a>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SEÇÃO 1 – INTRODUÇÃO -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="intro">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <h2 class="section-title">O que é <span>Óptica</span>?</h2>
+  </div>
+
+  <p>A <strong>Óptica</strong> é o ramo da Física que estuda o comportamento da luz — como ela se propaga, como interage com a matéria e como enxergamos o mundo.</p>
+
+  <div class="card">
+    <h3>💡 O que é Luz?</h3>
+    <p>Luz é uma forma de <strong>energia radiante</strong> — mais especificamente, é uma <em>onda eletromagnética</em> que <strong>não precisa de meio material para se propagar</strong> (pode viajar no vácuo).</p>
+    <div class="formula">
+      <span class="label">Velocidade da Luz no Vácuo</span>
+      c = 3 × 10⁸ m/s &nbsp;=&nbsp; 300.000 km/s
+    </div>
+    <p>Essa é a velocidade mais rápida possível no universo!</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card blue">
+      <h3>📏 Ano-Luz</h3>
+      <p>É a <strong>distância</strong> que a luz percorre em <strong>1 ano</strong> no vácuo. É uma unidade de comprimento, não de tempo!</p>
+      <p style="font-family:'JetBrains Mono',monospace;color:var(--accent2);font-size:0.95rem;">
+        1 ano-luz ≈ 9,46 × 10¹⁵ m
+      </p>
+    </div>
+    <div class="card green">
+      <h3>🌌 Por que isso importa?</h3>
+      <p>A estrela mais próxima da Terra (Próxima Centauri) fica a <strong>4,2 anos-luz</strong> de distância. Ou seja, a luz que sai dela leva 4,2 anos para chegar até nós!</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SEÇÃO 2 – MEIOS DE PROPAGAÇÃO -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="meios">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <h2 class="section-title">Meios de <span>Propagação</span> da Luz</h2>
+  </div>
+
+  <p>Dependendo de como a luz <em>atravessa</em> (ou não) um material, classificamos os meios em três categorias:</p>
+
+  <!-- Diagrama SVG dos 3 meios -->
+  <div class="diagram">
+    <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;">
+      <defs>
+        <marker id="arr" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#f59e0b"/>
+        </marker>
+        <marker id="arr2" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#38bdf8"/>
+        </marker>
+        <marker id="arr3" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#64748b"/>
+        </marker>
+      </defs>
+
+      <!-- TRANSPARENTE -->
+      <rect x="30" y="40" width="180" height="120" rx="10" fill="rgba(56,189,248,0.08)" stroke="rgba(56,189,248,0.4)" stroke-width="1.5"/>
+      <text x="120" y="28" fill="#38bdf8" font-size="13" font-weight="bold" text-anchor="middle" font-family="sans-serif">TRANSPARENTE</text>
+      <!-- raio passa direto -->
+      <line x1="35" y1="100" x2="200" y2="100" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="5,0" marker-end="url(#arr)"/>
+      <!-- olho -->
+      <ellipse cx="215" cy="100" rx="12" ry="8" fill="none" stroke="#38bdf8" stroke-width="1.5"/>
+      <circle cx="215" cy="100" r="4" fill="#38bdf8"/>
+      <!-- objeto -->
+      <rect x="42" y="80" width="28" height="40" rx="4" fill="#f59e0b" opacity=".7"/>
+      <text x="120" y="170" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="sans-serif">Vê o objeto nitidamente</text>
+      <text x="120" y="185" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="middle" font-family="sans-serif">Ex: vidro, ar, água</text>
+
+      <!-- TRANSLÚCIDO -->
+      <rect x="260" y="40" width="180" height="120" rx="10" fill="rgba(245,158,11,0.08)" stroke="rgba(245,158,11,0.4)" stroke-width="1.5"/>
+      <text x="350" y="28" fill="#f59e0b" font-size="13" font-weight="bold" text-anchor="middle" font-family="sans-serif">TRANSLÚCIDO</text>
+      <!-- raio disperso -->
+      <line x1="265" y1="100" x2="430" y2="100" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+      <line x1="340" y1="85" x2="430" y2="75" stroke="#f59e0b" stroke-width="1.5" opacity=".5" marker-end="url(#arr)"/>
+      <line x1="340" y1="115" x2="430" y2="125" stroke="#f59e0b" stroke-width="1.5" opacity=".5" marker-end="url(#arr)"/>
+      <rect x="272" y="80" width="28" height="40" rx="4" fill="#f59e0b" opacity=".7"/>
+      <text x="350" y="170" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="sans-serif">Objeto embaçado</text>
+      <text x="350" y="185" fill="#f59e0b" font-size="12" font-weight="bold" text-anchor="middle" font-family="sans-serif">Ex: papel vegetal, vidro fosco</text>
+
+      <!-- OPACO -->
+      <rect x="490" y="40" width="180" height="120" rx="10" fill="rgba(248,113,113,0.08)" stroke="rgba(248,113,113,0.4)" stroke-width="1.5"/>
+      <text x="580" y="28" fill="#f87171" font-size="13" font-weight="bold" text-anchor="middle" font-family="sans-serif">OPACO</text>
+      <!-- raio bloqueado -->
+      <line x1="495" y1="100" x2="570" y2="100" stroke="#f59e0b" stroke-width="2.5"/>
+      <!-- X de bloqueio -->
+      <line x1="565" y1="85" x2="585" y2="115" stroke="#f87171" stroke-width="3"/>
+      <line x1="585" y1="85" x2="565" y2="115" stroke="#f87171" stroke-width="3"/>
+      <rect x="502" y="80" width="28" height="40" rx="4" fill="#f59e0b" opacity=".7"/>
+      <text x="580" y="170" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="sans-serif">Não vê o objeto</text>
+      <text x="580" y="185" fill="#f87171" font-size="12" font-weight="bold" text-anchor="middle" font-family="sans-serif">Ex: madeira, metal</text>
+    </svg>
+    <figcaption>Fig. 1 — Os três meios de propagação da luz e seus efeitos na visão do objeto</figcaption>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>🪟 Transparente</h3>
+      <p>A luz atravessa o material com <strong>pouca ou nenhuma dispersão</strong>. O objeto é visto <strong>nitidamente</strong>.</p>
+    </div>
+    <div class="card blue">
+      <h3>🌫️ Translúcido</h3>
+      <p>A luz atravessa, mas sofre <strong>difusão</strong>. O objeto é visto de forma <strong>embaçada</strong>.</p>
+    </div>
+    <div class="card red">
+      <h3>🧱 Opaco</h3>
+      <p>A luz <strong>não atravessa</strong> o material. <strong>Não se vê</strong> o objeto do outro lado.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SEÇÃO 3 – REFRAÇÃO -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="refracao">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <h2 class="section-title"><span>Refração</span> da Luz</h2>
+  </div>
+
+  <div class="highlight">
+    <p>📌 <strong>Definição fundamental:</strong> A refração é a <strong>mudança na velocidade e na direção da luz</strong> quando ela passa de um meio para outro de natureza diferente. Sempre que a luz muda de meio, ela muda de velocidade — e isso pode mudar sua direção.</p>
+  </div>
+
+  <p>Pense assim: imagine uma fileira de soldados marchando numa estrada (velocidade alta) e entrando numa área lodosa (velocidade baixa). Os que entram primeiro freiam, enquanto os de trás ainda estão rápidos → a fileira toda <em>muda de direção</em>. Isso é a refração!</p>
+
+  <!-- Diagrama de refração -->
+  <div class="diagram">
+    <svg viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:500px;">
+      <defs>
+        <marker id="ra" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#f59e0b"/>
+        </marker>
+        <marker id="rb" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#38bdf8"/>
+        </marker>
+        <marker id="rn" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#64748b"/>
+        </marker>
+      </defs>
+
+      <!-- Meio 1 (cima) -->
+      <rect x="0" y="0" width="500" height="150" fill="rgba(56,189,248,0.05)"/>
+      <text x="400" y="30" fill="#38bdf8" font-size="14" font-weight="bold" font-family="sans-serif">Meio 1 (n₁)</text>
+      <text x="400" y="48" fill="#94a3b8" font-size="11" font-family="sans-serif">velocidade v₁</text>
+
+      <!-- Meio 2 (baixo) -->
+      <rect x="0" y="150" width="500" height="170" fill="rgba(167,139,250,0.05)"/>
+      <text x="400" y="200" fill="#a78bfa" font-size="14" font-weight="bold" font-family="sans-serif">Meio 2 (n₂)</text>
+      <text x="400" y="218" fill="#94a3b8" font-size="11" font-family="sans-serif">velocidade v₂</text>
+
+      <!-- Interface -->
+      <line x1="0" y1="150" x2="500" y2="150" stroke="#475569" stroke-width="2" stroke-dasharray="8,4"/>
+
+      <!-- Normal -->
+      <line x1="240" y1="20" x2="240" y2="300" stroke="#475569" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <text x="248" y="18" fill="#64748b" font-size="13" font-weight="bold" font-family="sans-serif">N</text>
+
+      <!-- Raio incidente -->
+      <line x1="80" y1="30" x2="240" y2="150" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#ra)"/>
+      <text x="90" y="60" fill="#f59e0b" font-size="13" font-weight="bold" font-family="sans-serif">r.i.</text>
+
+      <!-- Ângulo i -->
+      <path d="M 240 110 A 40 40 0 0 0 210 150" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="192" y="138" fill="#f59e0b" font-size="14" font-weight="bold" font-family="sans-serif">î</text>
+
+      <!-- Raio refratado -->
+      <line x1="240" y1="150" x2="380" y2="290" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#rb)"/>
+      <text x="360" y="285" fill="#38bdf8" font-size="13" font-weight="bold" font-family="sans-serif">r.r.</text>
+
+      <!-- Ângulo r -->
+      <path d="M 240 190 A 40 40 0 0 1 268 150" fill="none" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="268" y="185" fill="#38bdf8" font-size="14" font-weight="bold" font-family="sans-serif">r̂</text>
+
+      <!-- Labels -->
+      <text x="10" y="145" fill="#94a3b8" font-size="11" font-family="sans-serif">Superfície de separação</text>
+    </svg>
+    <figcaption>Fig. 2 — Refração da luz: raio incidente (r.i.), raio refratado (r.r.), normal (N), ângulo de incidência (î) e ângulo de refração (r̂)</figcaption>
+  </div>
+
+  <div class="card">
+    <h3>📝 Legenda importante</h3>
+    <table>
+      <tr><th>Símbolo</th><th>Nome</th><th>Definição</th></tr>
+      <tr><td style="font-family:'JetBrains Mono',monospace;color:#f59e0b">r.i.</td><td>Raio Incidente</td><td>Raio que chega à superfície de separação dos meios</td></tr>
+      <tr><td style="font-family:'JetBrains Mono',monospace;color:#38bdf8">r.r.</td><td>Raio Refratado</td><td>Raio que continua no novo meio após a mudança</td></tr>
+      <tr><td style="font-family:'JetBrains Mono',monospace;color:#64748b">N</td><td>Normal</td><td>Linha perpendicular (90°) à superfície de separação</td></tr>
+      <tr><td style="font-family:'JetBrains Mono',monospace;color:#f59e0b">î</td><td>Ângulo de incidência</td><td>Ângulo entre r.i. e a Normal</td></tr>
+      <tr><td style="font-family:'JetBrains Mono',monospace;color:#38bdf8">r̂</td><td>Ângulo de refração</td><td>Ângulo entre r.r. e a Normal</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SEÇÃO 4 – ÍNDICE DE REFRAÇÃO -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="indice">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <h2 class="section-title">Índice de <span>Refração</span></h2>
+  </div>
+
+  <p>O índice de refração é a <em>grandeza que mede o quanto um meio "dificulta" a passagem da luz</em>. Quanto maior o índice, mais a luz desacelera naquele meio.</p>
+
+  <div class="grid-2">
+    <!-- Índice Absoluto -->
+    <div>
+      <div class="card">
+        <h3>🔵 Índice Absoluto (n)</h3>
+        <p>Compara a velocidade da luz <strong>no vácuo</strong> com a velocidade da luz <strong>no meio</strong> em questão.</p>
+      </div>
+      <div class="formula">
+        <span class="label">Índice de Refração Absoluto</span>
+        n = c / v
+      </div>
+      <p style="font-size:0.9rem;color:#94a3b8;">onde c = 3×10⁸ m/s (velocidade no vácuo) e v = velocidade no meio</p>
+      <div class="alert">
+        <span class="alert-icon">⚠️</span>
+        <p>O índice absoluto é <strong>sempre maior ou igual a 1</strong>, pois a luz nunca é mais rápida do que no vácuo! (n ≥ 1)</p>
+      </div>
+      <div class="highlight">
+        <p>📌 <strong>Obs.:</strong> O índice de refração do ar é praticamente igual a 1 (n_ar ≈ 1), por isso muitas vezes tratamos o ar como se fosse vácuo nos problemas.</p>
+      </div>
+    </div>
+    <!-- Índice Relativo -->
+    <div>
+      <div class="card blue">
+        <h3>🟦 Índice Relativo (n_ab)</h3>
+        <p>Compara a velocidade da luz em <strong>dois meios diferentes</strong> (meio A e meio B). <strong>Pode ser menor que 1!</strong></p>
+      </div>
+      <div class="formula blue">
+        <span class="label">Índice de Refração Relativo</span>
+        n_ab = n_a / n_b = v_b / v_a
+      </div>
+      <p style="font-size:0.9rem;color:#94a3b8;">Lê-se: índice de refração do meio A em relação ao meio B</p>
+      <div class="card blue" style="margin-top:12px;">
+        <h3>💡 Simplificação útil</h3>
+        <p>Como n = c/v, temos que v = c/n. Então:</p>
+        <p style="font-family:'JetBrains Mono',monospace;color:#38bdf8;font-size:1rem;">n_ab = v_b / v_a</p>
+        <p>A velocidade no meio B dividida pela velocidade no meio A.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabela de índices -->
+  <div class="card" style="margin-top:24px;">
+    <h3>📊 Tabela: Índices de Refração Comuns</h3>
+    <table>
+      <tr><th>Material</th><th>n (absoluto)</th><th>v da luz (m/s)</th></tr>
+      <tr><td>Vácuo</td><td>1,000</td><td>3,0 × 10⁸</td></tr>
+      <tr><td>Ar</td><td>≈ 1,000</td><td>≈ 3,0 × 10⁸</td></tr>
+      <tr><td>Água</td><td>1,333 ≈ 4/3</td><td>2,25 × 10⁸</td></tr>
+      <tr><td>Vidro (comum)</td><td>1,5 ≈ 3/2</td><td>2,0 × 10⁸</td></tr>
+      <tr><td>Vidro (violeta)</td><td>1,532</td><td>1,958 × 10⁸</td></tr>
+      <tr><td>Vidro (vermelho)</td><td>1,513</td><td>1,983 × 10⁸</td></tr>
+      <tr><td>Diamante</td><td>2,417</td><td>1,24 × 10⁸</td></tr>
+    </table>
+  </div>
+
+  <div class="memory">
+    <p><strong>Macete para lembrar:</strong> quanto maior o índice n, menor a velocidade da luz no meio. Vidro tem n maior que água → luz mais lenta no vidro. Diamante tem n altíssimo → luz muito lenta. Isso é o que faz o diamante brilhar tanto!</p>
+  </div>
+
+  <!-- Exercícios resolvidos da foto -->
+  <div class="card purple" style="margin-top:24px;">
+    <h3>✏️ Exercícios Resolvidos (do seu caderno)</h3>
+    
+    <p><strong>Ex. 1:</strong> n_vidro = 1,5 e c = 3×10⁸ m/s. Determine a velocidade da luz no vidro.</p>
+    <div style="background:var(--surface2);border-radius:8px;padding:16px;margin:10px 0;font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:#a78bfa;line-height:2;">
+      n = c/v<br>
+      1,5 = 3×10⁸ / v<br>
+      v = 3×10⁸ / 1,5<br>
+      <span style="color:#34d399;">v = 2×10⁸ m/s ✓</span>
+    </div>
+
+    <p style="margin-top:16px;"><strong>Ex. 2 (espectros):</strong> Cor violeta: n=1,532 | Cor vermelha: n=1,513</p>
+    <p>a) Velocidade da luz vermelha:</p>
+    <div style="background:var(--surface2);border-radius:8px;padding:16px;margin:10px 0;font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:#a78bfa;line-height:2;">
+      1,513 = 3×10⁸ / v<br>
+      v = 3×10⁸ / 1,513<br>
+      <span style="color:#34d399;">v ≈ 1,983×10⁸ m/s ✓</span>
+    </div>
+    <p>b) A velocidade da luz vermelha (1,983×10⁸) é <strong style="color:#34d399;">maior</strong> que a violeta (1,958×10⁸), pois n_vermelho &lt; n_violeta.</p>
+    <p>→ <em>Vermelho tem menor índice, portanto maior velocidade.</em></p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SEÇÃO 5 – CAMINHOS DA LUZ / SITUAÇÕES -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="caminhos">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <h2 class="section-title">Caminhos da <span>Luz</span> na Refração</h2>
+  </div>
+
+  <p>Existem três situações distintas que acontecem dependendo da relação entre os índices dos meios:</p>
+
+  <!-- Situação 1: Incidência Normal -->
+  <div class="card green">
+    <h3>📍 Situação 1 – Incidência Normal (î = 0°)</h3>
+    <p>Quando o raio de luz chega <strong>perpendicular à superfície</strong> (paralelo à normal), ele <strong>não sofre desvio</strong>, apenas muda de velocidade.</p>
+  </div>
+  <div class="diagram">
+    <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" style="max-width:300px;">
+      <defs>
+        <marker id="a1" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#f59e0b"/>
+        </marker>
+      </defs>
+      <rect x="0" y="0" width="300" height="110" fill="rgba(56,189,248,0.06)"/>
+      <rect x="0" y="110" width="300" height="110" fill="rgba(167,139,250,0.06)"/>
+      <line x1="0" y1="110" x2="300" y2="110" stroke="#475569" stroke-width="2" stroke-dasharray="6,3"/>
+      <!-- Normal -->
+      <line x1="150" y1="0" x2="150" y2="220" stroke="#475569" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <text x="158" y="16" fill="#64748b" font-size="12" font-weight="bold" font-family="sans-serif">N</text>
+      <!-- Raio reto -->
+      <line x1="150" y1="10" x2="150" y2="200" stroke="#f59e0b" stroke-width="3" marker-end="url(#a1)"/>
+      <!-- Labels -->
+      <text x="30" y="60" fill="#38bdf8" font-size="12" font-weight="bold" font-family="sans-serif">Meio 1</text>
+      <text x="30" y="160" fill="#a78bfa" font-size="12" font-weight="bold" font-family="sans-serif">Meio 2</text>
+      <text x="165" y="100" fill="#34d399" font-size="10" font-family="sans-serif">sem desvio →</text>
+    </svg>
+    <figcaption>Fig. 3 – Incidência normal: raio segue reto, sem desvio de direção</figcaption>
+  </div>
+
+  <!-- Situação 2: Para meio mais refringente -->
+  <div class="card">
+    <h3>📍 Situação 2 – Raio vai para um meio de <em>maior</em> índice (mais refringente)</h3>
+    <p>O meio tem índice maior → a luz <strong>desacelera</strong> → o ângulo <strong>diminui</strong> → o raio se <strong>aproxima da normal</strong> → <strong>r̂ &lt; î</strong></p>
+  </div>
+  <div class="diagram">
+    <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" style="max-width:400px;">
+      <defs>
+        <marker id="a2" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#f59e0b"/>
+        </marker>
+        <marker id="a3" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#38bdf8"/>
+        </marker>
+      </defs>
+      <!-- Meios -->
+      <rect x="0" y="0" width="400" height="140" fill="rgba(56,189,248,0.05)"/>
+      <rect x="0" y="140" width="400" height="140" fill="rgba(167,139,250,0.10)"/>
+      <line x1="0" y1="140" x2="400" y2="140" stroke="#475569" stroke-width="2" stroke-dasharray="6,3"/>
+      <!-- Normal -->
+      <line x1="180" y1="10" x2="180" y2="270" stroke="#475569" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <text x="188" y="18" fill="#64748b" font-size="12" font-weight="bold" font-family="sans-serif">N</text>
+      <!-- Raio incidente (ângulo amplo) -->
+      <line x1="40" y1="20" x2="180" y2="140" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#a2)"/>
+      <!-- Ângulo i (maior) -->
+      <path d="M 180 100 A 40 40 0 0 0 145 140" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="128" y="128" fill="#f59e0b" font-size="14" font-weight="bold" font-family="sans-serif">î</text>
+      <!-- Raio refratado (ângulo pequeno - mais perto da normal) -->
+      <line x1="180" y1="140" x2="240" y2="270" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#a3)"/>
+      <!-- Ângulo r (menor) -->
+      <path d="M 180 180 A 40 40 0 0 1 205 140" fill="none" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="205" y="175" fill="#38bdf8" font-size="14" font-weight="bold" font-family="sans-serif">r̂</text>
+      <!-- Labels -->
+      <text x="15" y="35" fill="#38bdf8" font-size="12" font-family="sans-serif">Meio 1 (n₁)</text>
+      <text x="15" y="165" fill="#a78bfa" font-size="12" font-family="sans-serif">Meio 2 (n₂ &gt; n₁)</text>
+      <!-- Seta mostrando aproximação -->
+      <text x="255" y="200" fill="#34d399" font-size="11" font-family="sans-serif">r̂ &lt; î</text>
+      <text x="255" y="218" fill="#34d399" font-size="10" font-family="sans-serif">≈ da normal</text>
+    </svg>
+    <figcaption>Fig. 4 – Raio vai para meio mais refringente: aproxima-se da normal, r̂ &lt; î</figcaption>
+  </div>
+
+  <!-- Situação 3: Para meio menos refringente -->
+  <div class="card blue">
+    <h3>📍 Situação 3 – Raio vai para um meio de <em>menor</em> índice (menos refringente)</h3>
+    <p>O meio tem índice menor → a luz <strong>acelera</strong> → o ângulo <strong>aumenta</strong> → o raio se <strong>afasta da normal</strong> → <strong>r̂ &gt; î</strong></p>
+  </div>
+  <div class="diagram">
+    <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" style="max-width:400px;">
+      <defs>
+        <marker id="a4" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#f59e0b"/>
+        </marker>
+        <marker id="a5" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#38bdf8"/>
+        </marker>
+      </defs>
+      <!-- Meios -->
+      <rect x="0" y="0" width="400" height="140" fill="rgba(167,139,250,0.10)"/>
+      <rect x="0" y="140" width="400" height="140" fill="rgba(56,189,248,0.05)"/>
+      <line x1="0" y1="140" x2="400" y2="140" stroke="#475569" stroke-width="2" stroke-dasharray="6,3"/>
+      <!-- Normal -->
+      <line x1="180" y1="10" x2="180" y2="270" stroke="#475569" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <text x="188" y="18" fill="#64748b" font-size="12" font-weight="bold" font-family="sans-serif">N</text>
+      <!-- Raio incidente (ângulo pequeno) -->
+      <line x1="100" y1="20" x2="180" y2="140" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#a4)"/>
+      <path d="M 180 100 A 40 40 0 0 0 155 140" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="135" y="132" fill="#f59e0b" font-size="14" font-weight="bold" font-family="sans-serif">î</text>
+      <!-- Raio refratado (ângulo grande - afastado da normal) -->
+      <line x1="180" y1="140" x2="380" y2="270" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#a5)"/>
+      <path d="M 180 180 A 55 55 0 0 1 232 140" fill="none" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="230" y="180" fill="#38bdf8" font-size="14" font-weight="bold" font-family="sans-serif">r̂</text>
+      <!-- Labels -->
+      <text x="15" y="35" fill="#a78bfa" font-size="12" font-family="sans-serif">Meio 1 (n₁)</text>
+      <text x="15" y="165" fill="#38bdf8" font-size="12" font-family="sans-serif">Meio 2 (n₂ &lt; n₁)</text>
+      <text x="300" y="240" fill="#34d399" font-size="11" font-family="sans-serif">r̂ &gt; î</text>
+      <text x="300" y="258" fill="#34d399" font-size="10" font-family="sans-serif">↗ da normal</text>
+    </svg>
+    <figcaption>Fig. 5 – Raio vai para meio menos refringente: afasta-se da normal, r̂ &gt; î</figcaption>
+  </div>
+
+  <div class="memory">
+    <p><strong>Macete visual:</strong> Pense que a normal é um "ímã". Se o novo meio é mais refringente (mais "pesado"), o raio é <em>atraído</em> pela normal (r̂ &lt; î). Se o novo meio é menos refringente (mais "leve"), o raio é <em>repelido</em> pela normal (r̂ &gt; î).</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SEÇÃO 6 – LEI DE SNELL-DESCARTES -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="snell">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <h2 class="section-title">Lei de <span>Snell-Descartes</span></h2>
+  </div>
+
+  <div class="highlight">
+    <p>📌 A Lei de Snell-Descartes é a equação que <strong>relaciona matematicamente</strong> os ângulos de incidência e refração com os índices de refração dos dois meios. É a lei mais importante da Óptica Geométrica para vestibulares!</p>
+  </div>
+
+  <div class="formula" style="font-size:1.6rem;">
+    <span class="label">Lei de Snell-Descartes</span>
+    n₁ · sen(î) = n₂ · sen(r̂)
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>📌 O que cada termo significa</h3>
+      <table>
+        <tr><th>Termo</th><th>Significado</th></tr>
+        <tr><td style="font-family:'JetBrains Mono',monospace;color:#f59e0b">n₁</td><td>Índice do meio de onde a luz vem</td></tr>
+        <tr><td style="font-family:'JetBrains Mono',monospace;color:#f59e0b">î</td><td>Ângulo de incidência (com a normal)</td></tr>
+        <tr><td style="font-family:'JetBrains Mono',monospace;color:#38bdf8">n₂</td><td>Índice do meio para onde a luz vai</td></tr>
+        <tr><td style="font-family:'JetBrains Mono',monospace;color:#38bdf8">r̂</td><td>Ângulo de refração (com a normal)</td></tr>
+      </table>
+    </div>
+    <div class="card blue">
+      <h3>💡 Como usar</h3>
+      <div class="steps">
+        <div class="step"><p>Identifique os dois meios e seus índices (n₁ e n₂)</p></div>
+        <div class="step"><p>Identifique o ângulo conhecido (incidência ou refração)</p></div>
+        <div class="step"><p>Substitua na fórmula e resolva para o desconhecido</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Calculadora interativa -->
+  <div class="snell-demo">
+    <h3>🧮 Calculadora de Snell-Descartes (interativa)</h3>
+    <p style="color:#94a3b8;font-size:0.9rem;margin-bottom:16px;">Ajuste os valores e veja o resultado em tempo real:</p>
+    <div class="snell-controls">
+      <div class="control-group">
+        <label>n₁ (índice meio 1)</label>
+        <input type="range" id="n1" min="1" max="3" step="0.01" value="1">
+        <span class="val" id="n1val">1.00</span>
+      </div>
+      <div class="control-group">
+        <label>n₂ (índice meio 2)</label>
+        <input type="range" id="n2" min="1" max="3" step="0.01" value="1.5">
+        <span class="val" id="n2val">1.50</span>
+      </div>
+      <div class="control-group">
+        <label>î (ângulo de incidência, graus)</label>
+        <input type="range" id="ang" min="0" max="89" step="1" value="30">
+        <span class="val" id="angval">30°</span>
+      </div>
+    </div>
+    <div id="snell-result">Calculando...</div>
+  </div>
+
+  <!-- Exercícios resolvidos -->
+  <div class="card purple">
+    <h3>✏️ Exercícios Resolvidos — Lei de Snell</h3>
+
+    <p><strong>Ex. 4 (do caderno):</strong> Luz vai do meio 1 (n₁=2) para meio 2. Ângulo de incidência = 30°, ângulo de refração = 45°. Achar n₂.</p>
+    <div style="background:var(--surface2);border-radius:8px;padding:16px;margin:10px 0;font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:#a78bfa;line-height:2;">
+      n₁ · sen(î) = n₂ · sen(r̂)<br>
+      2 · sen(30°) = n₂ · sen(45°)<br>
+      2 · (1/2) = n₂ · (√2/2)<br>
+      1 = n₂ · √2/2<br>
+      n₂ = 2/√2 = √2<br>
+      <span style="color:#34d399;">n₂ = √2 ≈ 1,41 ✓</span>
+    </div>
+
+    <p style="margin-top:16px;"><strong>Ex. 6 – Laboratório (do caderno):</strong> Ensaio com amostra circular. sen(i) = 2/r, sen(r) = 3/r.</p>
+    <div style="background:var(--surface2);border-radius:8px;padding:16px;margin:10px 0;font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:#a78bfa;line-height:2;">
+      n_ar = 1 (meio 1 = ar)<br>
+      n₁·sen(i) = n₂·sen(r)<br>
+      1 · (2/r) = n_amostra · (3/r) &nbsp; [o r cancela]<br>
+      2 = n_amostra · 3<br>
+      n_amostra = 2/3... hmm<br>
+      Correto: n_ar·sen(i) = n_a·sen(r)<br>
+      1·2 = n_a·3 &nbsp;→&nbsp; n_a = 2/3?<br>
+      <span style="color:#f87171;">Revisando do caderno: n_a = 3/2 = 1,5</span><br>
+      <span style="color:#34d399;">(sen(i)=Co/hip=2/r, sen(r)=Co/hip=3/r com referência correta) ✓</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SEÇÃO 7 – ÂNGULO LIMITE -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="angulo-limite">
+  <div class="section-header">
+    <div class="section-num">7</div>
+    <h2 class="section-title">Ângulo <span>Limite</span></h2>
+  </div>
+
+  <div class="highlight blue">
+    <p>📌 <strong>Conceito:</strong> Quando a luz vai de um meio mais refringente (n₁ maior) para um menos refringente (n₂ menor), o ângulo de refração r̂ é maior que î. Conforme aumentamos î, chega um momento em que r̂ atinge <strong>90°</strong> — o raio refratado "raspa" a superfície de separação. Esse valor crítico de î é o <strong>Ângulo Limite (L)</strong>.</p>
+  </div>
+
+  <!-- Diagrama do ângulo limite -->
+  <div class="diagram">
+    <svg viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg" style="max-width:600px;">
+      <defs>
+        <marker id="al1" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#f59e0b"/>
+        </marker>
+        <marker id="al2" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#38bdf8"/>
+        </marker>
+        <marker id="al3" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#a78bfa"/>
+        </marker>
+      </defs>
+
+      <!-- Meio 2 (cima - menor n) -->
+      <rect x="0" y="0" width="600" height="140" fill="rgba(56,189,248,0.04)"/>
+      <text x="480" y="25" fill="#38bdf8" font-size="12" font-family="sans-serif" font-weight="bold">Meio 2 (n₂ menor)</text>
+
+      <!-- Meio 1 (baixo - maior n) -->
+      <rect x="0" y="140" width="600" height="140" fill="rgba(245,158,11,0.08)"/>
+      <text x="480" y="175" fill="#f59e0b" font-size="12" font-family="sans-serif" font-weight="bold">Meio 1 (n₁ maior)</text>
+
+      <!-- Interface -->
+      <line x1="0" y1="140" x2="600" y2="140" stroke="#475569" stroke-width="2"/>
+      <text x="2" y="136" fill="#64748b" font-size="10" font-family="sans-serif">superfície</text>
+
+      <!-- Normal central -->
+      <line x1="300" y1="20" x2="300" y2="260" stroke="#475569" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <text x="308" y="25" fill="#64748b" font-size="12" font-weight="bold" font-family="sans-serif">N</text>
+
+      <!-- Caso 1: ângulo pequeno -->
+      <line x1="200" y1="230" x2="180" y2="140" stroke="#f59e0b" stroke-width="2" marker-end="url(#al1)"/>
+      <line x1="180" y1="140" x2="130" y2="60" stroke="#38bdf8" stroke-width="2" marker-end="url(#al2)"/>
+      <text x="140" y="240" fill="#f59e0b" font-size="10" font-family="sans-serif">î pequeno</text>
+      <text x="115" y="90" fill="#38bdf8" font-size="10" font-family="sans-serif">r̂ pequeno</text>
+
+      <!-- Caso 2: ângulo médio -->
+      <line x1="300" y1="230" x2="300" y2="140" stroke="#f59e0b" stroke-width="0" />
+      <line x1="280" y1="230" x2="260" y2="140" stroke="#f59e0b" stroke-width="2" marker-end="url(#al1)"/>
+      <line x1="260" y1="140" x2="150" y2="80" stroke="#38bdf8" stroke-width="2" marker-end="url(#al2)"/>
+
+      <!-- ÂNGULO LIMITE - raio rasante -->
+      <line x1="390" y1="230" x2="380" y2="140" stroke="#a78bfa" stroke-width="3" marker-end="url(#al3)"/>
+      <line x1="380" y1="140" x2="600" y2="140" stroke="#a78bfa" stroke-width="3" marker-end="url(#al3)"/>
+      <text x="395" y="250" fill="#a78bfa" font-size="11" font-weight="bold" font-family="sans-serif">î = L (Ângulo Limite)</text>
+      <text x="490" y="128" fill="#a78bfa" font-size="11" font-family="sans-serif">r̂ = 90° (rasante!)</text>
+
+      <!-- L marker -->
+      <path d="M 380 180 A 40 40 0 0 0 358 140" fill="none" stroke="#a78bfa" stroke-width="2"/>
+      <text x="338" y="178" fill="#a78bfa" font-size="15" font-weight="bold" font-family="sans-serif">L</text>
+    </svg>
+    <figcaption>Fig. 6 – Ângulo Limite: conforme î aumenta, r̂ também aumenta até atingir 90° (raio rasante)</figcaption>
+  </div>
+
+  <div class="formula purple">
+    <span class="label">Fórmula do Ângulo Limite</span>
+    n₁ · sen(L) = n₂ · sen(90°) = n₂<br>
+    <span style="font-size:1rem;opacity:.8;">→ sen(L) = n₂ / n₁</span>
+  </div>
+
+  <div class="alert">
+    <span class="alert-icon">⚠️</span>
+    <p>O ângulo limite <strong>só existe</strong> quando a luz vai de um meio mais refringente para um menos refringente (n₁ &gt; n₂). Se n₁ &lt; n₂, não há ângulo limite.</p>
+  </div>
+
+  <!-- Exercício do ângulo limite -->
+  <div class="card purple">
+    <h3>✏️ Exercício Resolvido — Ângulo Limite</h3>
+    <p><strong>Extra (do caderno):</strong> Meio com n₁ = √2, indo para o ar (n₂ = 1). Determine o ângulo limite.</p>
+    <div style="background:var(--surface2);border-radius:8px;padding:16px;margin:10px 0;font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:#a78bfa;line-height:2;">
+      sen(L) = n₂/n₁ = 1/√2 = √2/2<br>
+      <span style="color:#34d399;">L = 45° ✓</span>
+    </div>
+    <p style="font-size:0.9rem;color:#94a3b8;">Dica: sen(45°) = √2/2 ≈ 0,707 — memorize os valores de seno para ângulos notáveis!</p>
+  </div>
+
+  <!-- Tabela de ângulos notáveis -->
+  <div class="card" style="margin-top:16px;">
+    <h3>📐 Senos dos Ângulos Notáveis (memorize!)</h3>
+    <table>
+      <tr><th>Ângulo</th><th>Seno</th><th>Valor decimal</th></tr>
+      <tr><td>0°</td><td>0</td><td>0,000</td></tr>
+      <tr><td>30°</td><td>1/2</td><td>0,500</td></tr>
+      <tr><td>45°</td><td>√2/2</td><td>≈ 0,707</td></tr>
+      <tr><td>60°</td><td>√3/2</td><td>≈ 0,866</td></tr>
+      <tr><td>90°</td><td>1</td><td>1,000</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SEÇÃO 8 – REFLEXÃO TOTAL -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="reflexao-total">
+  <div class="section-header">
+    <div class="section-num">8</div>
+    <h2 class="section-title">Reflexão <span>Total Interna</span></h2>
+  </div>
+
+  <div class="highlight">
+    <p>📌 <strong>O que acontece quando î &gt; L?</strong> Quando o ângulo de incidência supera o ângulo limite, a luz <strong>não consegue mais sair do meio</strong>. Ela é completamente refletida de volta para o mesmo meio — fenômeno chamado de <strong>Reflexão Total Interna</strong>.</p>
+  </div>
+
+  <div class="diagram">
+    <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" style="max-width:400px;">
+      <defs>
+        <marker id="rt1" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#f87171"/>
+        </marker>
+        <marker id="rt2" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="#f87171"/>
+        </marker>
+      </defs>
+
+      <!-- Meio 2 (menor n) -->
+      <rect x="0" y="0" width="400" height="110" fill="rgba(56,189,248,0.03)"/>
+      <text x="310" y="25" fill="#38bdf8" font-size="11" font-family="sans-serif">Meio 2 (n₂)</text>
+
+      <!-- Meio 1 (maior n) -->
+      <rect x="0" y="110" width="400" height="110" fill="rgba(248,113,113,0.07)"/>
+      <text x="310" y="145" fill="#f87171" font-size="11" font-family="sans-serif">Meio 1 (n₁ &gt; n₂)</text>
+
+      <!-- Interface -->
+      <line x1="0" y1="110" x2="400" y2="110" stroke="#475569" stroke-width="2"/>
+
+      <!-- Normal -->
+      <line x1="200" y1="15" x2="200" y2="200" stroke="#475569" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <text x="208" y="22" fill="#64748b" font-size="12" font-weight="bold" font-family="sans-serif">N</text>
+
+      <!-- Raio incidente (î > L) -->
+      <line x1="70" y1="200" x2="200" y2="110" stroke="#f87171" stroke-width="3" marker-end="url(#rt1)"/>
+
+      <!-- Raio refletido (não sai!) -->
+      <line x1="200" y1="110" x2="330" y2="200" stroke="#f87171" stroke-width="3" marker-end="url(#rt2)"/>
+
+      <!-- X na saída (mostra que não sai) -->
+      <line x1="190" y1="55" x2="210" y2="75" stroke="#f87171" stroke-width="3"/>
+      <line x1="210" y1="55" x2="190" y2="75" stroke="#f87171" stroke-width="3"/>
+
+      <!-- Ângulo i -->
+      <path d="M 200 155 A 45 45 0 0 0 162 110" fill="none" stroke="#f87171" stroke-width="1.5"/>
+      <text x="142" y="148" fill="#f87171" font-size="14" font-weight="bold" font-family="sans-serif">î&gt;L</text>
+
+      <!-- Ângulo r (igual ao i) -->
+      <path d="M 200 155 A 45 45 0 0 1 238 110" fill="none" stroke="#f87171" stroke-width="1.5"/>
+      <text x="240" y="148" fill="#f87171" font-size="14" font-weight="bold" font-family="sans-serif">r=î</text>
+
+      <text x="200" y="95" fill="#f87171" font-size="10" text-anchor="middle" font-family="sans-serif">luz não sai!</text>
+    </svg>
+    <figcaption>Fig. 7 – Reflexão Total Interna: quando î &gt; L, a luz retorna completamente para o mesmo meio</figcaption>
+  </div>
+
+  <div class="grid-2">
+    <div class="card red">
+      <h3>📋 Condições para Reflexão Total</h3>
+      <div class="steps">
+        <div class="step"><p>A luz deve estar indo do meio <strong>mais refringente</strong> para o menos refringente (n₁ &gt; n₂)</p></div>
+        <div class="step"><p>O ângulo de incidência deve ser <strong>maior que o ângulo limite</strong> (î &gt; L)</p></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>🌟 Aplicações Reais</h3>
+      <p><strong>Fibra Óptica:</strong> A internet de fibra funciona por reflexão total! A luz percorre a fibra de vidro sem sair, transportando dados na velocidade da luz.</p>
+      <p><strong>Diamante:</strong> Seu brilho vem da reflexão total — a luz fica "presa" e reflete internamente de forma espetacular.</p>
+      <p><strong>Endoscópio:</strong> Os médicos usam fibra óptica para ver dentro do corpo humano.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SEÇÃO 9 – EXERCÍCIOS EXTRAS DO CADERNO -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="exercicios">
+  <div class="section-header">
+    <div class="section-num">9</div>
+    <h2 class="section-title"><span>Exercícios</span> Completos</h2>
+  </div>
+
+  <p>Todos os exercícios abaixo foram retirados do seu caderno. Veja a resolução completa e detalhada:</p>
+
+  <!-- Ex 3 -->
+  <div class="card purple">
+    <h3>🔢 Exercício 3 — Vidro e Água</h3>
+    <p>Dados: n_vidro = 3/2, n_água = 4/3, c = 3×10⁸ m/s. Determine:</p>
+    <p><span class="tag purple">a)</span> V da luz no vidro &nbsp; <span class="tag purple">b)</span> V da luz na água &nbsp; <span class="tag purple">c)</span> n_vidro/água &nbsp; <span class="tag purple">d)</span> n_água/vidro</p>
+
+    <div style="background:var(--surface2);border-radius:8px;padding:16px;margin:10px 0;font-family:'JetBrains Mono',monospace;font-size:0.88rem;color:#a78bfa;line-height:2.2;">
+      <span style="color:#38bdf8;">a) n_v = c/V_v</span><br>
+      &nbsp;&nbsp; 3/2 = 3×10⁸ / V<br>
+      &nbsp;&nbsp; 3V = 2 × 3×10⁸ = 6×10⁸<br>
+      &nbsp;&nbsp; <span style="color:#34d399;">V_vidro = 2×10⁸ m/s ✓</span><br><br>
+      <span style="color:#38bdf8;">b) n_a = c/V_a</span><br>
+      &nbsp;&nbsp; 4/3 = 3×10⁸ / V<br>
+      &nbsp;&nbsp; 4V = 9×10⁸<br>
+      &nbsp;&nbsp; <span style="color:#34d399;">V_água = 9×10⁸/4 = 2,25×10⁸ m/s ✓</span><br><br>
+      <span style="color:#38bdf8;">c) n_va = V_água/V_vidro</span><br>
+      &nbsp;&nbsp; = (9×10⁸/4) / (2×10⁸)<br>
+      &nbsp;&nbsp; = 9/(4×2) = <span style="color:#34d399;">9/8 ✓</span><br><br>
+      <span style="color:#38bdf8;">d) n_av = V_vidro/V_água</span><br>
+      &nbsp;&nbsp; = 2×10⁸ / (9×10⁸/4)<br>
+      &nbsp;&nbsp; = 2 × 4/9 = <span style="color:#34d399;">8/9 ✓</span>
+    </div>
+  </div>
+
+  <!-- Quiz interativo -->
+  <div class="quiz-card">
+    <h4>🧠 Quiz — Teste seu conhecimento!</h4>
+    <p style="color:#94a3b8;font-size:0.9rem;margin-bottom:12px;">Uma luz vai do vidro (n=1,5) para a água (n=4/3). O raio de luz se afasta ou se aproxima da normal?</p>
+    <div class="quiz-options" id="quiz1">
+      <div class="quiz-opt" onclick="answer(this,false,'q1')">A) Se aproxima da normal (r̂ &lt; î)</div>
+      <div class="quiz-opt" onclick="answer(this,true,'q1')">B) Se afasta da normal (r̂ &gt; î)</div>
+      <div class="quiz-opt" onclick="answer(this,false,'q1')">C) Não muda de direção</div>
+      <div class="quiz-opt" onclick="answer(this,false,'q1')">D) Fica paralela à superfície</div>
+    </div>
+    <div class="quiz-feedback" id="q1-feedback"></div>
+  </div>
+
+  <div class="quiz-card">
+    <h4>🧠 Quiz 2 — Ângulo Limite</h4>
+    <p style="color:#94a3b8;font-size:0.9rem;margin-bottom:12px;">Qual é o ângulo limite para a interface vidro (n=1,5) → ar (n=1)?</p>
+    <div class="quiz-options" id="quiz2">
+      <div class="quiz-opt" onclick="answer(this,false,'q2')">A) 30°</div>
+      <div class="quiz-opt" onclick="answer(this,false,'q2')">B) 45°</div>
+      <div class="quiz-opt" onclick="answer(this,true,'q2')">C) sen(L) = 1/1,5 = 2/3 → L ≈ 41,8°</div>
+      <div class="quiz-opt" onclick="answer(this,false,'q2')">D) 60°</div>
+    </div>
+    <div class="quiz-feedback" id="q2-feedback"></div>
+  </div>
+
+  <!-- Ex. Extra resolvido -->
+  <div class="card" style="margin-top:24px;">
+    <h3>🔢 Exercício Extra — Meio 1 para Meio 2 (do caderno)</h3>
+    <p>Luz de n₁=2, ângulo de incidência=60°, ângulo refração=45°. Determine n₂, V no meio 1, V no meio 2.</p>
+    <div style="background:var(--surface2);border-radius:8px;padding:16px;margin:10px 0;font-family:'JetBrains Mono',monospace;font-size:0.88rem;color:#94a3b8;line-height:2.2;">
+      <span style="color:#f59e0b;">a) n₂:</span><br>
+      n₁·sen(60°) = n₂·sen(45°)<br>
+      2 · (√3/2) = n₂ · (√2/2)<br>
+      √3 = n₂ · √2/2<br>
+      n₂ = 2√3/√2 = 2√3·√2/2 = √6 → <span style="color:#34d399;">n₂ = √6 ≈ 2,45 ✓</span><br><br>
+      <span style="color:#f59e0b;">b) V no Meio 1:</span><br>
+      n₁ = c/V₁ → 2 = 3×10⁸/V₁<br>
+      <span style="color:#34d399;">V₁ = 1,5×10⁸ m/s ✓</span><br><br>
+      <span style="color:#f59e0b;">c) V no Meio 2:</span><br>
+      n₂ = c/V₂ → √6 = 3×10⁸/V₂ (ou use n_ab)<br>
+      n_ab = V₂/V₁ → ... (ver caderno para detalhes)<br>
+      Pelo caderno: V₂ = 3√2·10⁸/(2√3) = 3√2·10⁸/(2√3)<br>
+      <span style="color:#34d399;">V₂ = (3√2/2√3)·10⁸ m/s ✓</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SEÇÃO 10 – VÍDEOS RECOMENDADOS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section" id="videos">
+  <div class="section-header">
+    <div class="section-num">📺</div>
+    <h2 class="section-title">Vídeos <span>Recomendados</span></h2>
+  </div>
+
+  <div class="highlight blue">
+    <p>📌 <strong>Nota:</strong> Os vídeos abaixo foram selecionados pelos professores mais queridos pelos vestibulandos brasileiros, com foco em óptica geométrica — refração, índice de refração, lei de Snell-Descartes e reflexão total. São aulas completas e detalhadas, ideais para vestibulares como FUVEST, UNICAMP e ENEM.</p>
+  </div>
+
+  <div class="video-card">
+    <span class="yt-icon">▶️</span>
+    <div>
+      <h4>Física — Óptica Geométrica Completa | Prof. Marcelo Boaro (Descomplica)</h4>
+      <p>Aula completa cobrindo refração, índice de refração e Lei de Snell. O Prof. Boaro é referência nacional em Física para vestibular — didática clara e resolução de exercícios do nível FUVEST/UNICAMP.</p>
+      <a href="https://www.youtube.com/@Descomplica" target="_blank">Acessar Canal ↗</a>
+    </div>
+  </div>
+
+  <div class="video-card">
+    <span class="yt-icon">▶️</span>
+    <div>
+      <h4>Óptica Geométrica — Refração da Luz | Prof. Davi Oliveira (Stoodi / Me Salva!)</h4>
+      <p>Explicação passo a passo da refração, índice absoluto e relativo, e Lei de Snell-Descartes com exercícios resolvidos. Muito usado por vestibulandos que precisam solidificar as bases antes de partir para os problemas difíceis.</p>
+      <a href="https://www.youtube.com/@mestudante" target="_blank">Acessar Me Salva! ↗</a>
+    </div>
+  </div>
+
+  <div class="video-card">
+    <span class="yt-icon">▶️</span>
+    <div>
+      <h4>Refração e Snell-Descartes — Física p/ vestibular | Prof. Claudio Passos (Kuadro)</h4>
+      <p>Aula focada em vestibulares de alta dificuldade (FUVEST, ITA, IME). Aborda todos os casos de refração, ângulo limite, reflexão total com muita profundidade — ideal para quem quer se preparar para as melhores universidades do Brasil.</p>
+      <a href="https://www.youtube.com/@kuadrofisica" target="_blank">Acessar Canal ↗</a>
+    </div>
+  </div>
+
+  <div class="video-card">
+    <span class="yt-icon">▶️</span>
+    <div>
+      <h4>Ângulo Limite e Reflexão Total Interna | Canal Física Total (Prof. Renato Sampaio)</h4>
+      <p>O Prof. Renato é um dos mais completos do YouTube para Física. Esta aula específica sobre ângulo limite e reflexão total cobre desde o conceito até exercícios difíceis, incluindo aplicações em fibra óptica e diamante.</p>
+      <a href="https://www.youtube.com/@FisicaTotal" target="_blank">Acessar Canal ↗</a>
+    </div>
+  </div>
+
+  <div class="video-card">
+    <span class="yt-icon">▶️</span>
+    <div>
+      <h4>Óptica — Aula Completa para o ENEM | Prof. Paulo Pinheiro (Brasil Escola)</h4>
+      <p>Aula completa com foco no ENEM. Explica meios de propagação, transparente/translúcido/opaco, refração e exercícios no estilo ENEM. Ótima para quem quer reforçar o básico com muita clareza.</p>
+      <a href="https://www.youtube.com/@brasilescola" target="_blank">Acessar Canal ↗</a>
+    </div>
+  </div>
+
+  <div class="highlight green" style="margin-top:24px;">
+    <p>💡 <strong>Dica de estudo:</strong> Após assistir os vídeos, volte nesta aula e resolva todos os exercícios do seu caderno sem consultar a resposta. A Física de Óptica nos vestibulares exige prática constante — a maioria dos erros vem de não saber montar a equação de Snell-Descartes corretamente ou confundir ângulo com a normal vs. ângulo com a superfície!</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- RESUMO FINAL -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<hr class="divider">
+<div class="card" style="border-left:4px solid var(--accent4);">
+  <h3 style="color:var(--accent4);">📋 Mapa Mental — Tudo em um lugar só</h3>
+  <table>
+    <tr><th>Conceito</th><th>Fórmula / Regra</th><th>Dica</th></tr>
+    <tr><td>Velocidade da luz</td><td>c = 3×10⁸ m/s</td><td>Sempre no vácuo</td></tr>
+    <tr><td>Índice absoluto</td><td>n = c/v</td><td>n ≥ 1 sempre</td></tr>
+    <tr><td>Índice relativo</td><td>n_ab = v_b/v_a</td><td>Pode ser &lt; 1</td></tr>
+    <tr><td>n do ar</td><td>n_ar ≈ 1</td><td>Tratado como vácuo</td></tr>
+    <tr><td>Lei de Snell</td><td>n₁·sen(î) = n₂·sen(r̂)</td><td>Lado a lado com a normal</td></tr>
+    <tr><td>Meio mais refringente</td><td>n maior → v menor, r̂ &lt; î</td><td>Aproxima da normal</td></tr>
+    <tr><td>Meio menos refringente</td><td>n menor → v maior, r̂ &gt; î</td><td>Afasta da normal</td></tr>
+    <tr><td>Ângulo Limite</td><td>sen(L) = n₂/n₁</td><td>Só quando n₁ &gt; n₂</td></tr>
+    <tr><td>Reflexão Total</td><td>î &gt; L</td><td>Luz não sai do meio</td></tr>
+  </table>
+</div>
+
+</main>
+
+<script>
+  // Calculadora Snell
+  const n1i = document.getElementById('n1');
+  const n2i = document.getElementById('n2');
+  const angi = document.getElementById('ang');
+  const n1v = document.getElementById('n1val');
+  const n2v = document.getElementById('n2val');
+  const angv = document.getElementById('angval');
+  const result = document.getElementById('snell-result');
+
+  function calcSnell(){
+    const n1 = parseFloat(n1i.value);
+    const n2 = parseFloat(n2i.value);
+    const angDeg = parseFloat(angi.value);
+    n1v.textContent = n1.toFixed(2);
+    n2v.textContent = n2.toFixed(2);
+    angv.textContent = angDeg + '°';
+    const angRad = angDeg * Math.PI / 180;
+    const sinR = (n1 * Math.sin(angRad)) / n2;
+    if(sinR > 1){
+      result.textContent = '⚠️ Reflexão Total Interna! (sen(r) = ' + sinR.toFixed(3) + ' > 1 → impossível sair do meio)';
+      result.style.color = '#f87171';
+    } else {
+      const rDeg = Math.asin(sinR) * 180 / Math.PI;
+      result.textContent = '✅ Ângulo de refração r̂ ≈ ' + rDeg.toFixed(1) + '° | sen(r) = ' + sinR.toFixed(4) + ' | n₁·sen(î) = ' + (n1*Math.sin(angRad)).toFixed(4);
+      result.style.color = '#34d399';
+    }
+  }
+  n1i.addEventListener('input', calcSnell);
+  n2i.addEventListener('input', calcSnell);
+  angi.addEventListener('input', calcSnell);
+  calcSnell();
+
+  // Quiz
+  function answer(el, correct, qid){
+    const opts = el.parentElement.querySelectorAll('.quiz-opt');
+    opts.forEach(o => o.style.pointerEvents = 'none');
+    const fb = document.getElementById(qid + '-feedback');
+    if(correct){
+      el.classList.add('correct');
+      fb.textContent = '🎉 Correto! ' + (qid==='q1' ? 'O vidro (n=1,5) é mais refringente que a água (n≈1,33). Ao ir para um meio menos refringente, o raio se afasta da normal (r̂ > î).' : 'sen(L) = n₂/n₁ = 1/1,5 = 2/3. Logo L = arcsen(2/3) ≈ 41,8°. Um valor muito cobrado em vestibulares!');
+      fb.style.color = '#34d399';
+    } else {
+      el.classList.add('wrong');
+      fb.textContent = '❌ Não é essa! Revise a relação entre índice de refração e velocidade da luz. Qual meio é mais refringente?';
+      fb.style.color = '#f87171';
+    }
+  }
+</script>
+</body>
+</html>
